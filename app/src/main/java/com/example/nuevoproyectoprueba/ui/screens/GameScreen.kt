@@ -9,10 +9,14 @@ import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 
 @Composable
-fun GameScreen(navController: NavController) {
-    var score by remember { mutableStateOf(0) }
-    var timeLeft by remember { mutableStateOf(60) } // 60 segundos
-    var word by remember { mutableStateOf("Perro") } // temporal, luego usamos WordProvider
+fun GameScreen(navController: NavController, category: String, mode: String) {
+    var scoreA by remember { mutableStateOf(0) }
+    var scoreB by remember { mutableStateOf(0) }
+    var currentTeam by remember { mutableStateOf("A") } // alterna entre equipos
+
+    var timeLeft by remember { mutableStateOf(30) } // 30 segundos por ronda
+    val words = remember { WordProvider.getWords(category).shuffled().toMutableList() }
+    var word by remember { mutableStateOf(words.removeFirstOrNull() ?: "Fin") }
 
     // Temporizador
     LaunchedEffect(Unit) {
