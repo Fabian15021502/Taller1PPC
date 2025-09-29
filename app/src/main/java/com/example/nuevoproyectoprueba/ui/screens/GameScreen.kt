@@ -29,6 +29,9 @@ fun GameScreen(navController: NavController, category: String, mode: String) {
     }
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+        Text("Categoría: $category", style = MaterialTheme.typography.headlineSmall)
+        Spacer(modifier = Modifier.height(8.dp))
+
         Text("Tiempo: $timeLeft s", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(16.dp))
         Text("Palabra: $word", style = MaterialTheme.typography.headlineLarge)
