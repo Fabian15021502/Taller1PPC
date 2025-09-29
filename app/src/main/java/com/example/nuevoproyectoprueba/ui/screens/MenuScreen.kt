@@ -14,7 +14,14 @@ fun MenuScreen(navController: NavController) {
             onClick = { navController.navigate("categories/individual") },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Jugar")
+            Text("Juego Individual")
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = { navController.navigate("categories/equipos") },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Juego en Equipos")
         }
         Spacer(modifier = Modifier.height(8.dp))
         Button(
