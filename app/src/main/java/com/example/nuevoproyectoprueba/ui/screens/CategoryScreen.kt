@@ -8,8 +8,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 @Composable
-fun CategoryScreen(navController: NavController) {
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+fun CategoryScreen(navController: NavController, mode: String) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(16.dp)) {
         Text("Selecciona una categoría", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(16.dp))
 
