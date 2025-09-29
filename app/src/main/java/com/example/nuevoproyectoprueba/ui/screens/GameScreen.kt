@@ -48,8 +48,19 @@ fun GameScreen(navController: NavController, category: String, mode: String) {
 
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = {
-            score++
-            word = "Nueva palabra"
+            if (mode == "individual") {
+                scoreA++
+            } else {
+                if (currentTeam == "A") scoreA++ else scoreB++
+                // alterna equipo
+                currentTeam = if (currentTeam == "A") "B" else "A"
+            }
+
+            // Corrige el error usando removeAt(0)
+            word = if (words.isNotEmpty()) words.removeAt(0) else "Fin"
+            if (word == "Fin") {
+                navController.navigate("results/$scoreA/$scoreB/$mode")
+            }
         }) {
             Text("Correcto (+1)")
         }
