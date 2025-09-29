@@ -66,7 +66,18 @@ fun GameScreen(navController: NavController, category: String, mode: String) {
         }
 
         Spacer(modifier = Modifier.height(8.dp))
-        Button(onClick = { word = "Otra palabra" }) {
+        Button(onClick = {
+            // Corrige el error usando removeAt(0)
+            word = if (words.isNotEmpty()) words.removeAt(0) else "Fin"
+            if (word == "Fin") {
+                navController.navigate("results/$scoreA/$scoreB/$mode")
+                return@Button
+            }
+            if (mode == "equipos") {
+                // alterna equipo en modo equipos
+                currentTeam = if (currentTeam == "A") "B" else "A"
+            }
+        }) {
             Text("Pasar")
         }
     }
