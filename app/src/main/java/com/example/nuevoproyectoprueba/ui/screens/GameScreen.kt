@@ -24,7 +24,8 @@ fun GameScreen(navController: NavController, category: String, mode: String) {
             delay(1000)
             timeLeft--
         }
-        navController.navigate("results/$score")
+        // Al terminar tiempo, pasa a resultados
+        navController.navigate("results/$scoreA/$scoreB/$mode")
     }
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
