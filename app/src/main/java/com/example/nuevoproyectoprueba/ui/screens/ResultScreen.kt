@@ -10,7 +10,7 @@ import androidx.navigation.NavController
 @Composable
 fun ResultScreen(navController: NavController, finalScore: Int) {
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text("Puntaje final: $finalScore", style = MaterialTheme.typography.headlineMedium)
+        Text("Resultados", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(16.dp))
 
         if (mode == "individual") {
