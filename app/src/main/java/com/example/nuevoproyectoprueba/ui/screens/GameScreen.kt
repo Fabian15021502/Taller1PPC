@@ -16,7 +16,7 @@ fun GameScreen(navController: NavController, category: String, mode: String) {
 
     var timeLeft by remember { mutableStateOf(30) } // 30 segundos por ronda
     val words = remember { WordProvider.getWords(category).shuffled().toMutableList() }
-    var word by remember { mutableStateOf(words.removeFirstOrNull() ?: "Fin") }
+    var word by remember { mutableStateOf(words.removeAt(0) ?:"Fin") }
 
     // Temporizador
     LaunchedEffect(Unit) {
