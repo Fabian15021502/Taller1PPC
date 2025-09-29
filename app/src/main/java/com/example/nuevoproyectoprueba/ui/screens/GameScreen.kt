@@ -34,6 +34,7 @@ fun GameScreen(navController: NavController, category: String, mode: String) {
 
         Text("Tiempo: $timeLeft s", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(16.dp))
+
         Text("Palabra: $word", style = MaterialTheme.typography.headlineLarge)
         Spacer(modifier = Modifier.height(16.dp))
         Text("Puntaje: $score", style = MaterialTheme.typography.bodyLarge)
