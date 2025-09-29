@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 @Composable
-fun ResultScreen(navController: NavController, finalScore: Int) {
+fun ResultScreen(navController: NavController, scoreA: Int, scoreB: Int, mode: String) {
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         Text("Resultados", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(16.dp))
