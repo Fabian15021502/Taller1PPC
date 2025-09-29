@@ -11,7 +11,7 @@ import androidx.navigation.NavController
 fun MenuScreen(navController: NavController) {
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         Button(
-            onClick = { navController.navigate("categories") },
+            onClick = { navController.navigate("categories/individual") },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Jugar")
