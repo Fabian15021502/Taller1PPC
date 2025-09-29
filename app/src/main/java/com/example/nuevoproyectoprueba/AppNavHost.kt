@@ -17,11 +17,23 @@ fun AppNavHost(navController: NavHostController) {
         startDestination = "menu"
     ) {
         composable("menu") { MenuScreen(navController) }
-        composable("categories") { CategoryScreen(navController) }
-        composable("game") { GameScreen(navController) }
-        composable("results/{finalScore}") { backStackEntry ->
-            val score = backStackEntry.arguments?.getString("finalScore")?.toIntOrNull() ?: 0
-            ResultScreen(navController, finalScore = score)
+
+        composable("categories/{mode}") { backStackEntry ->
+            val mode = backStackEntry.arguments?.getString("mode") ?: "individual"
+            CategoryScreen(navController, mode)
+        }
+
+        composable("game/{category}/{mode}") { backStackEntry ->
+            val category = backStackEntry.arguments?.getString("category") ?: ""
+            val mode = backStackEntry.arguments?.getString("mode") ?: "individual"
+            GameScreen(navController, category, mode)
+        }
+
+        composable("results/{scoreA}/{scoreB}/{mode}") { backStackEntry ->
+            val scoreA = backStackEntry.arguments?.getString("scoreA")?.toIntOrNull() ?: 0
+            val scoreB = backStackEntry.arguments?.getString("scoreB")?.toIntOrNull() ?: 0
+            val mode = backStackEntry.arguments?.getString("mode") ?: "individual"
+            ResultScreen(navController, scoreA, scoreB, mode)
         }
     }
 }
