@@ -13,9 +13,11 @@ fun CategoryScreen(navController: NavController) {
         Text("Selecciona una categoría", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = { navController.navigate("game") }, modifier = Modifier.fillMaxWidth()) {
-            Text("Animales")
-        }
+        Button(
+            onClick = { navController.navigate("game/Animales/$mode") },
+            modifier = Modifier.fillMaxWidth()
+        ) { Text("Animales") }
+
         Spacer(modifier = Modifier.height(8.dp))
         Button(onClick = { navController.navigate("game") }, modifier = Modifier.fillMaxWidth()) {
             Text("Películas")
