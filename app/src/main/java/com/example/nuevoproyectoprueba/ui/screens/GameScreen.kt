@@ -37,7 +37,14 @@ fun GameScreen(navController: NavController, category: String, mode: String) {
 
         Text("Palabra: $word", style = MaterialTheme.typography.headlineLarge)
         Spacer(modifier = Modifier.height(16.dp))
-        Text("Puntaje: $score", style = MaterialTheme.typography.bodyLarge)
+
+        if (mode == "individual") {
+            Text("Puntaje: $scoreA", style = MaterialTheme.typography.bodyLarge)
+        } else {
+            Text("Equipo A: $scoreA", style = MaterialTheme.typography.bodyLarge)
+            Text("Equipo B: $scoreB", style = MaterialTheme.typography.bodyLarge)
+            Text("Turno: Equipo $currentTeam", style = MaterialTheme.typography.bodyMedium)
+        }
 
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = {
