@@ -9,7 +9,6 @@ import com.example.nuevoproyectoprueba.ui.screens.CategoryScreen
 import com.example.nuevoproyectoprueba.ui.screens.GameScreen
 import com.example.nuevoproyectoprueba.ui.screens.ResultScreen
 
-
 @Composable
 fun AppNavHost(navController: NavHostController) {
     NavHost(
