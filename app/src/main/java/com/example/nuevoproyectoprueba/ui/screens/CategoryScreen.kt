@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.nuevoproyectoprueba.model.WordProvider
 
 @Composable
 fun CategoryScreen(navController: NavController, mode: String) {
