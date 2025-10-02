@@ -67,14 +67,21 @@ fun ResultScreen(navController: NavController, scoresJson: String?, mode: String
             )
         }
 
-            Spacer(modifier = Modifier.height(16.dp))
-            val ganador = when {
-                scoreA > scoreB -> "Equipo A"
-                scoreB > scoreA -> "Equipo B"
-                else -> "Empate"
-            }
-            Text("Ganador: $ganador", style = MaterialTheme.typography.headlineSmall)
-        }
+        Spacer(modifier = Modifier.height(32.dp))
+
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                scoresWithIndex.forEachIndexed { position, (teamIndex, score) ->
+                    val isWinner = score == winnerScore
+                    val medal = when (position) {
+                        0 -> "🥇"
+                        1 -> "🥈"
+                        2 -> "🥉"
+                        else -> "${position + 1}."
+                    }
 
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = { navController.navigate("menu") }, modifier = Modifier.fillMaxWidth()) {
