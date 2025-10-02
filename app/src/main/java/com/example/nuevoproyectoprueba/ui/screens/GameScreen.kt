@@ -163,8 +163,50 @@ fun GameScreen(
                 }
             }
 
-        Text("Tiempo: $timeLeft s", style = MaterialTheme.typography.headlineMedium)
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(32.dp))
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        "Puntuaciones Actuales:",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    scores.forEachIndexed { index, score ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 4.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                "Equipo ${index + 1}",
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = if (index == currentTeamIndex) FontWeight.Bold else FontWeight.Normal,
+                                color = if (index == currentTeamIndex)
+                                    MaterialTheme.colorScheme.primary
+                                else
+                                    MaterialTheme.colorScheme.onSurface
+                            )
+                            Text(
+                                "$score puntos",
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = if (index == currentTeamIndex) FontWeight.Bold else FontWeight.Normal,
+                                color = if (index == currentTeamIndex)
+                                    MaterialTheme.colorScheme.primary
+                                else
+                                    MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
 
         Text("Palabra: $word", style = MaterialTheme.typography.headlineLarge)
         Spacer(modifier = Modifier.height(16.dp))
