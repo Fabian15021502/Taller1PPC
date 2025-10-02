@@ -16,17 +16,22 @@ import androidx.navigation.NavController
 import com.example.nuevoproyectoprueba.model.WordProvider
 
 @Composable
-fun CategoryScreen(navController: NavController, mode: String) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp)) {
-        Text("Selecciona una categoría", style = MaterialTheme.typography.headlineMedium)
-        Spacer(modifier = Modifier.height(16.dp))
+fun CategoryScreen(navController: NavController, mode: String, teams: Int, rounds: Int) {
+    // Debug
+    println("=== CategoryScreen ===")
+    println("Mode: $mode, Teams: $teams, Rounds: $rounds")
+    println("======================")
 
-        Button(
-            onClick = { navController.navigate("game/Animales/$mode") },
-            modifier = Modifier.fillMaxWidth()
-        ) { Text("Animales") }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Text(
+            "👇 Selecciona una Categoría",
+            style = MaterialTheme.typography.headlineLarge,
+            fontWeight = FontWeight.Bold
+        )
 
         Spacer(modifier = Modifier.height(8.dp))
 
