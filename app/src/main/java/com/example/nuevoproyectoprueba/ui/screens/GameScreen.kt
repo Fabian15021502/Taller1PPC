@@ -208,8 +208,16 @@ fun GameScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-        Text("Palabra: $word", style = MaterialTheme.typography.headlineLarge)
-        Spacer(modifier = Modifier.height(16.dp))
+            Button(
+                onClick = { startTurn() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+            ) {
+                Text("¡Comenzar Turno!", style = MaterialTheme.typography.titleLarge)
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
 
         if (mode == "individual") {
             Text("Puntaje: $scoreA", style = MaterialTheme.typography.bodyLarge)
