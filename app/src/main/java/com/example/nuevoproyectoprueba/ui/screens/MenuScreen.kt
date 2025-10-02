@@ -12,13 +12,25 @@ import androidx.navigation.NavController
 
 @Composable
 fun MenuScreen(navController: NavController) {
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Button(
-            onClick = { navController.navigate("categories/individual") },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Juego Individual")
-        }
+    var selectedMode by remember { mutableStateOf("individual") }
+    var numberOfTeamsInput by remember { mutableStateOf("") } // Captura el input del usuario
+    var numberOfRoundsInput by remember { mutableStateOf("") } // Captura el input del usuario
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            "Juego de Palabras",
+            style = MaterialTheme.typography.headlineLarge
+        )
+        Spacer(modifier = Modifier.height(32.dp))
+
+        // Selector de modo
+        Text("Modo de Juego:", style = MaterialTheme.typography.titleMedium)
         Spacer(modifier = Modifier.height(8.dp))
         Button(
             onClick = { navController.navigate("categories/equipos") },
