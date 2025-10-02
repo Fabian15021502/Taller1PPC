@@ -19,12 +19,26 @@ fun GameScreen(
 ) {
     // Debug: Verificar valores recibidos
     LaunchedEffect(Unit) {
-        while (timeLeft > 0) {
-            delay(1000)
-            timeLeft--
-        }
-        // Al terminar tiempo, pasa a resultados
-        navController.navigate("results/$scoreA/$scoreB/$mode")
+        println("GameScreen - totalTeams: $totalTeams, totalRounds: $totalRounds, mode: $mode")
+    }
+
+    // Inicialización de palabras
+    val initialWords = remember { WordProvider.getWords(category) }
+
+    // Estados del juego
+    var palabrasDisponibles by remember { mutableStateOf(initialWords.shuffled()) }
+    var tiempoRestante by remember { mutableIntStateOf(30) }
+    var palabraActual by remember { mutableStateOf(palabrasDisponibles.firstOrNull() ?: "") }
+    var scores by remember { mutableStateOf(List(totalTeams) { 0 }) }
+    var currentTeamIndex by remember { mutableIntStateOf(0) }
+    var currentRound by remember { mutableIntStateOf(1) }
+    var isPlaying by remember { mutableStateOf(false) }
+    var showTransition by remember { mutableStateOf(true) }
+
+    // Función para reiniciar las palabras
+    fun resetWords() {
+        palabrasDisponibles = initialWords.shuffled()
+        palabraActual = palabrasDisponibles.firstOrNull() ?: ""
     }
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
