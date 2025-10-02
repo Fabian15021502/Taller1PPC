@@ -265,14 +265,45 @@ fun GameScreen(
                         )
                     }
 
-        Spacer(modifier = Modifier.height(24.dp))
-        Button(onClick = {
-            if (mode == "individual") {
-                scoreA++
-            } else {
-                if (currentTeam == "A") scoreA++ else scoreB++
-                // alterna equipo
-                currentTeam = if (currentTeam == "A") "B" else "A"
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    if (mode == "teams") {
+                        Text(
+                            "Ronda: $currentRound / $totalRounds",
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                        Text(
+                            "Turno del Equipo ${currentTeamIndex + 1} de $totalTeams",
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceAround
+                        ) {
+                            scores.forEachIndexed { index, score ->
+                                Text(
+                                    "E${index + 1}: $score",
+                                    fontWeight = if (index == currentTeamIndex)
+                                        FontWeight.Bold
+                                    else
+                                        FontWeight.Normal,
+                                    color = if (index == currentTeamIndex)
+                                        MaterialTheme.colorScheme.primary
+                                    else
+                                        MaterialTheme.colorScheme.onPrimaryContainer
+                                )
+                            }
+                        }
+                    } else {
+                        Text(
+                            "Puntuación: ${scores[0]}",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
             }
 
             // Corrige el error usando removeAt(0)
