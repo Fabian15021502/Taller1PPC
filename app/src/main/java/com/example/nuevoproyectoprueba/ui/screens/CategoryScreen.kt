@@ -35,16 +35,50 @@ fun CategoryScreen(navController: NavController, mode: String, teams: Int, round
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Button(
-            onClick = { navController.navigate("game/Películas/$mode") },
-            modifier = Modifier.fillMaxWidth()
-        ) { Text("Películas") }
+        // Mostrar configuración actual
+        if (mode == "teams") {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                )
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        "Configuración:",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text("• Equipos: $teams")
+                    Text("• Rondas: $rounds")
+                }
+            }
+        }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
-        Button(
-            onClick = { navController.navigate("game/Profesiones/$mode") },
-            modifier = Modifier.fillMaxWidth()
-        ) { Text("Profesiones") }
+        val categories = WordProvider.getAllCategories()
+
+        LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            items(categories) { category ->
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                ) {
+                    Button(
+                        onClick = {
+                            val route = "game/${category.name}/$mode/$teams/$rounds"
+                            println("Navegando a: $route")
+                            navController.navigate(route)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                    ) {
+                        Text(category.name, style = MaterialTheme.typography.titleLarge)
+                    }
+                }
+            }
+        }
     }
 }
