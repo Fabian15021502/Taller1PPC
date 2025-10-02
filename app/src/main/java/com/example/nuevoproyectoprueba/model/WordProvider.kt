@@ -10,4 +10,8 @@ object WordProvider {
     fun getWords(category: String): List<String> {
         return categories.find { it.name == category }?.words ?: emptyList()
     }
+
+    fun getAllCategories(): List<Category> {
+        return categories
+        }
 }
