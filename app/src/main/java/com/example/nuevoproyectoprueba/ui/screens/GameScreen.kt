@@ -41,9 +41,127 @@ fun GameScreen(
         palabraActual = palabrasDisponibles.firstOrNull() ?: ""
     }
 
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text("Categoría: $category", style = MaterialTheme.typography.headlineSmall)
-        Spacer(modifier = Modifier.height(8.dp))
+    // Función para finalizar turno
+    fun endTurn() {
+        println("endTurn - Equipo actual: ${currentTeamIndex + 1}, Ronda: $currentRound")
+        isPlaying = false
+
+        if (mode == "teams") {
+            // Incrementar el índice del equipo
+            val nextTeamIndex = currentTeamIndex + 1
+
+            if (nextTeamIndex < totalTeams) {
+                // Hay más equipos que deben jugar en esta ronda
+                currentTeamIndex = nextTeamIndex
+                showTransition = true
+                println("Siguiente equipo: ${currentTeamIndex + 1}")
+            } else {
+                // Todos los equipos jugaron esta ronda
+                if (currentRound < totalRounds) {
+                    // Pasar a la siguiente ronda
+                    currentRound++
+                    currentTeamIndex = 0
+                    showTransition = true
+                    println("Nueva ronda: $currentRound, vuelve Equipo 1")
+                } else {
+                    // Juego terminado
+                    println("Juego terminado - Mostrando resultados")
+                    val scoresJson = Gson().toJson(scores.toIntArray())
+                    navController.navigate("results/$scoresJson/$mode") {
+                        popUpTo("menu") { inclusive = false }
+                    }
+                }
+            }
+        } else {
+            // Modo individual
+            val scoresJson = Gson().toJson(scores.toIntArray())
+            navController.navigate("results/$scoresJson/$mode") {
+                popUpTo("menu") { inclusive = false }
+            }
+        }
+    }
+
+    // Función para iniciar turno
+    fun startTurn() {
+        resetWords()
+        tiempoRestante = 30
+        isPlaying = true
+        showTransition = false
+        println("Turno iniciado - Equipo ${currentTeamIndex + 1}, Ronda $currentRound")
+    }
+
+    // Función para pasar a la siguiente palabra
+    fun nextWord(correct: Boolean) {
+        if (!isPlaying) return
+
+        if (correct) {
+            val newScores = scores.toMutableList()
+            newScores[currentTeamIndex]++
+            scores = newScores
+            println("Punto para Equipo ${currentTeamIndex + 1}. Score: ${newScores[currentTeamIndex]}")
+        }
+
+        if (palabrasDisponibles.size > 1) {
+            palabrasDisponibles = palabrasDisponibles.drop(1)
+            palabraActual = palabrasDisponibles.first()
+        } else {
+            endTurn()
+        }
+    }
+
+    // Timer
+    LaunchedEffect(isPlaying) {
+        if (isPlaying) {
+            while (tiempoRestante > 0 && isPlaying) {
+                delay(1000L)
+                tiempoRestante--
+            }
+            if (isPlaying && tiempoRestante == 0) {
+                endTurn()
+            }
+        }
+    }
+
+    // UI
+    if (showTransition && mode == "teams") {
+        // Pantalla de transición entre turnos
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding(24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        "Ronda $currentRound de $totalRounds",
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        "Turno del Equipo ${currentTeamIndex + 1}",
+                        style = MaterialTheme.typography.headlineLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        "Total de Equipos: $totalTeams",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
+            }
 
         Text("Tiempo: $timeLeft s", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(16.dp))
