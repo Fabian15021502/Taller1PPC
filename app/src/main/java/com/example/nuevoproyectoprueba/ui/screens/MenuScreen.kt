@@ -86,8 +86,45 @@ fun MenuScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
-            onClick = { navController.navigate("categories/equipos") },
-            modifier = Modifier.fillMaxWidth()
+            onClick = {
+                // Obtener valores reales capturados del usuario
+                val teams = if (selectedMode == "individual") {
+                    1
+                } else {
+                    // Convertir el input a Int, debe existir porque el botón está habilitado
+                    val inputValue = numberOfTeamsInput.toIntOrNull() ?: 2
+                    inputValue.coerceIn(2, 10)
+                }
+
+                val rounds = if (selectedMode == "individual") {
+                    1
+                } else {
+                    // Convertir el input a Int, debe existir porque el botón está habilitado
+                    val inputValue = numberOfRoundsInput.toIntOrNull() ?: 3
+                    inputValue.coerceIn(1, 10)
+                }
+
+                // Debug completo
+                println("=== DEBUG MENUSCREEN ===")
+                println("Mode: $selectedMode")
+                println("Input Equipos: '$numberOfTeamsInput'")
+                println("Input Rondas: '$numberOfRoundsInput'")
+                println("Teams calculados: $teams")
+                println("Rounds calculados: $rounds")
+                println("Navegando a: categories/$selectedMode/$teams/$rounds")
+                println("========================")
+
+                navController.navigate("categories/$selectedMode/$teams/$rounds")
+            },
+            modifier = Modifier.fillMaxWidth(),
+            enabled = if (selectedMode == "teams") {
+                numberOfTeamsInput.isNotEmpty() &&
+                        numberOfRoundsInput.isNotEmpty() &&
+                        numberOfTeamsInput.toIntOrNull() != null &&
+                        numberOfRoundsInput.toIntOrNull() != null
+            } else {
+                true
+            }
         ) {
             Text("Juego en Equipos")
         }
