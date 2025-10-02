@@ -128,12 +128,15 @@ fun MenuScreen(navController: NavController) {
         ) {
             Text("Comenzar")
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(
-            onClick = { /* acción para salir */ },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Salir")
+
+        // Mensaje de ayuda
+        if (selectedMode == "teams" && (numberOfTeamsInput.isEmpty() || numberOfRoundsInput.isEmpty())) {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                "Por favor ingresa el número de equipos y rondas",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.error
+            )
         }
     }
 }
