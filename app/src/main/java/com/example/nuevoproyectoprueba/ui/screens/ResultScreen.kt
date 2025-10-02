@@ -89,3 +89,16 @@ fun ResultScreen(navController: NavController, scoresJson: String?, mode: String
         }
     }
 }
+
+        Spacer(modifier = Modifier.height(32.dp))
+
+        Button(
+            onClick = { navController.navigate("menu") {
+                popUpTo("menu") { inclusive = true }
+            }},
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Volver al Menú Principal", style = MaterialTheme.typography.titleMedium)
+        }
+    }
+}
