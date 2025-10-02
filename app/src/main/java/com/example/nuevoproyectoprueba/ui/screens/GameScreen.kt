@@ -321,17 +321,27 @@ fun GameScreen(
                 Spacer(modifier = Modifier.height(16.dp))
             }
 
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(onClick = {
-            // Corrige el error usando removeAt(0)
-            word = if (words.isNotEmpty()) words.removeAt(0) else "Fin"
-            if (word == "Fin") {
-                navController.navigate("results/$scoreA/$scoreB/$mode")
-                return@Button
-            }
-            if (mode == "equipos") {
-                // alterna equipo en modo equipos
-                currentTeam = if (currentTeam == "A") "B" else "A"
+            // Card con palabra
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer
+                )
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = if (isPlaying) palabraActual else if (mode == "individual") "Presiona ¡Comenzar Juego!" else "Presiona ¡Comenzar Turno!",
+                        style = MaterialTheme.typography.displayMedium,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(16.dp)
+                    )
+                }
             }
         }) {
             Text("Pasar")
