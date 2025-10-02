@@ -126,7 +126,7 @@ fun MenuScreen(navController: NavController) {
                 true
             }
         ) {
-            Text("Juego en Equipos")
+            Text("Comenzar")
         }
         Spacer(modifier = Modifier.height(8.dp))
         Button(
