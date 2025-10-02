@@ -83,12 +83,31 @@ fun ResultScreen(navController: NavController, scoresJson: String?, mode: String
                         else -> "${position + 1}."
                     }
 
-        Spacer(modifier = Modifier.height(24.dp))
-        Button(onClick = { navController.navigate("menu") }, modifier = Modifier.fillMaxWidth()) {
-            Text("Reiniciar")
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            "$medal ${if (modeFinal == "individual") "Jugador" else "Equipo $teamIndex"}",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = if (isWinner) FontWeight.Bold else FontWeight.Normal,
+                            color = if (isWinner) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            "$score puntos",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = if (isWinner) FontWeight.Bold else FontWeight.Normal,
+                            color = if (isWinner) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                    if (position < scoresWithIndex.size - 1) {
+                        HorizontalDivider()
+                    }
+                }
+            }
         }
-    }
-}
 
         Spacer(modifier = Modifier.height(32.dp))
 
