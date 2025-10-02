@@ -8,6 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 @Composable
 fun ResultScreen(navController: NavController, scoresJson: String?, mode: String?) {
