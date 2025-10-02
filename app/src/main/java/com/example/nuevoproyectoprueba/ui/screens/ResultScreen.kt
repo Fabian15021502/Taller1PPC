@@ -55,8 +55,17 @@ fun ResultScreen(navController: NavController, scoresJson: String?, mode: String
                 color = MaterialTheme.colorScheme.primary
             )
         } else {
-            Text("Equipo A: $scoreA puntos", style = MaterialTheme.typography.bodyLarge)
-            Text("Equipo B: $scoreB puntos", style = MaterialTheme.typography.bodyLarge)
+            val winnerText = if (modeFinal == "individual") {
+                "¡Juego Terminado!"
+            } else {
+                "¡Ganador: Equipo ${winners.first().first}!"
+            }
+            Text(
+                winnerText,
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
 
             Spacer(modifier = Modifier.height(16.dp))
             val ganador = when {
