@@ -10,6 +10,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.nuevoproyectoprueba.model.WordProvider
+import com.google.gson.Gson
 import kotlinx.coroutines.delay
 
 @Composable
