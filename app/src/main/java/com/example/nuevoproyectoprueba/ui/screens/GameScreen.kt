@@ -306,14 +306,20 @@ fun GameScreen(
                 }
             }
 
-            // Corrige el error usando removeAt(0)
-            word = if (words.isNotEmpty()) words.removeAt(0) else "Fin"
-            if (word == "Fin") {
-                navController.navigate("results/$scoreA/$scoreB/$mode")
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Botón de inicio (solo para modo individual en primera vez)
+            if (!isPlaying && mode == "individual" && showTransition) {
+                Button(
+                    onClick = { startTurn() },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp)
+                ) {
+                    Text("¡Comenzar Juego!", style = MaterialTheme.typography.titleLarge)
+                }
+                Spacer(modifier = Modifier.height(16.dp))
             }
-        }) {
-            Text("Correcto (+1)")
-        }
 
         Spacer(modifier = Modifier.height(8.dp))
         Button(onClick = {
