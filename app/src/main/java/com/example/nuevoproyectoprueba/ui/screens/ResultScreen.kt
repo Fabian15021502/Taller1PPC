@@ -8,10 +8,31 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 @Composable
-fun ResultScreen(navController: NavController, scoreA: Int, scoreB: Int, mode: String) {
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text("Resultados", style = MaterialTheme.typography.headlineMedium)
-        Spacer(modifier = Modifier.height(16.dp))
+fun ResultScreen(navController: NavController, scoresJson: String?, mode: String?) {
+    val scores = remember(scoresJson) {
+        if (scoresJson != null) {
+            try {
+                Gson().fromJson<IntArray>(scoresJson, object : TypeToken<IntArray>() {}.type).toList()
+            } catch (e: Exception) {
+                // Handle potential JSON parsing errors, e.g., log the error
+                emptyList()
+            }
+        } else {
+            emptyList()
+        }
+    }
+
+    val modeFinal = remember(mode) {
+        mode ?: "teams"
+    }
+
+    val scoresWithIndex = remember(scores) {
+        scores.mapIndexed { index, score -> Pair(index + 1, score) }
+            .sortedByDescending { it.second }
+    }
+
+    val winnerScore = scoresWithIndex.firstOrNull()?.second
+    val winners = scoresWithIndex.filter { it.second == winnerScore }
 
         if (mode == "individual") {
             Text("Puntaje final: $scoreA", style = MaterialTheme.typography.headlineSmall)
