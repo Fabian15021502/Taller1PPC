@@ -10,16 +10,14 @@ import com.example.nuevoproyectoprueba.model.WordProvider
 import kotlinx.coroutines.delay
 
 @Composable
-fun GameScreen(navController: NavController, category: String, mode: String) {
-    var scoreA by remember { mutableStateOf(0) }
-    var scoreB by remember { mutableStateOf(0) }
-    var currentTeam by remember { mutableStateOf("A") } // alterna entre equipos
-
-    var timeLeft by remember { mutableStateOf(30) } // 30 segundos por ronda
-    val words = remember { WordProvider.getWords(category).shuffled().toMutableList() }
-    var word by remember { mutableStateOf(words.removeAt(0) ?:"Fin") }
-
-    // Temporizador
+fun GameScreen(
+    navController: NavController,
+    category: String,
+    mode: String,
+    totalTeams: Int,
+    totalRounds: Int
+) {
+    // Debug: Verificar valores recibidos
     LaunchedEffect(Unit) {
         while (timeLeft > 0) {
             delay(1000)
