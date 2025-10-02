@@ -343,8 +343,35 @@ fun GameScreen(
                     )
                 }
             }
-        }) {
-            Text("Pasar")
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            if (isPlaying) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Button(
+                        onClick = { nextWord(false) },
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(60.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                    ) {
+                        Text("Pasar")
+                    }
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Button(
+                        onClick = { nextWord(true) },
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(60.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                    ) {
+                        Text("Correcto")
+                    }
+                }
+            }
         }
     }
 }
