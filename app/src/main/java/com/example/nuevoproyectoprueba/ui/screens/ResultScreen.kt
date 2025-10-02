@@ -34,8 +34,26 @@ fun ResultScreen(navController: NavController, scoresJson: String?, mode: String
     val winnerScore = scoresWithIndex.firstOrNull()?.second
     val winners = scoresWithIndex.filter { it.second == winnerScore }
 
-        if (mode == "individual") {
-            Text("Puntaje final: $scoreA", style = MaterialTheme.typography.headlineSmall)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+    ) {
+        Text(
+            "🏆 Resultados Finales",
+            style = MaterialTheme.typography.headlineLarge,
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        if (winners.size > 1) {
+            Text(
+                "¡Empate!",
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.primary
+            )
         } else {
             Text("Equipo A: $scoreA puntos", style = MaterialTheme.typography.bodyLarge)
             Text("Equipo B: $scoreB puntos", style = MaterialTheme.typography.bodyLarge)
