@@ -219,13 +219,51 @@ fun GameScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-        if (mode == "individual") {
-            Text("Puntaje: $scoreA", style = MaterialTheme.typography.bodyLarge)
-        } else {
-            Text("Equipo A: $scoreA", style = MaterialTheme.typography.bodyLarge)
-            Text("Equipo B: $scoreB", style = MaterialTheme.typography.bodyLarge)
-            Text("Turno: Equipo $currentTeam", style = MaterialTheme.typography.bodyMedium)
+            OutlinedButton(
+                onClick = {
+                    val scoresJson = Gson().toJson(scores.toIntArray())
+                    navController.navigate("results/$scoresJson/$mode") {
+                        popUpTo("menu") { inclusive = false }
+                    }
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Terminar Juego Ahora")
+            }
         }
+    } else {
+        // Pantalla de juego activa
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            // Header
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                )
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            "Categoría: $category",
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                        Text(
+                            "⏱ $tiempoRestante s",
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = if (tiempoRestante <= 10)
+                                MaterialTheme.colorScheme.error
+                            else
+                                MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    }
 
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = {
