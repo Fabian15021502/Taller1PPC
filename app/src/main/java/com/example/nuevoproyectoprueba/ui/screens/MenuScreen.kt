@@ -32,6 +32,59 @@ fun MenuScreen(navController: NavController) {
         // Selector de modo
         Text("Modo de Juego:", style = MaterialTheme.typography.titleMedium)
         Spacer(modifier = Modifier.height(8.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            FilterChip(
+                selected = selectedMode == "individual",
+                onClick = { selectedMode = "individual" },
+                label = { Text("Individual") }
+            )
+            FilterChip(
+                selected = selectedMode == "teams",
+                onClick = { selectedMode = "teams" },
+                label = { Text("Equipos") }
+            )
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // Configuración de equipos (solo si modo equipos)
+        if (selectedMode == "teams") {
+            OutlinedTextField(
+                value = numberOfTeamsInput,
+                onValueChange = {
+                    // Solo permitir números
+                    if (it.isEmpty() || (it.toIntOrNull() != null && it.toInt() in 2..10)) {
+                        numberOfTeamsInput = it
+                    }
+                },
+                label = { Text("Número de Equipos (2-10)") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                modifier = Modifier.fillMaxWidth(),
+                placeholder = { Text("Ej: 3") }
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedTextField(
+                value = numberOfRoundsInput,
+                onValueChange = {
+                    // Solo permitir números
+                    if (it.isEmpty() || (it.toIntOrNull() != null && it.toInt() in 1..10)) {
+                        numberOfRoundsInput = it
+                    }
+                },
+                label = { Text("Número de Rondas (1-10)") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                modifier = Modifier.fillMaxWidth(),
+                placeholder = { Text("Ej: 3") }
+            )
+        }
+
+        Spacer(modifier = Modifier.height(32.dp))
+
         Button(
             onClick = { navController.navigate("categories/equipos") },
             modifier = Modifier.fillMaxWidth()
