@@ -76,7 +76,24 @@ fun AppNavHost(navController: NavHostController, startDestination: String = "men
         ) { backStackEntry ->
             val category = backStackEntry.arguments?.getString("category") ?: "Animales"
             val mode = backStackEntry.arguments?.getString("mode") ?: "individual"
-            CategoryScreen(navController, mode)
+            val teams = backStackEntry.arguments?.getInt("teams") ?: 1
+            val rounds = backStackEntry.arguments?.getInt("rounds") ?: 3
+
+            // Debug
+            println("=== DEBUG GAMESCREEN ===")
+            println("Category: $category")
+            println("Mode recibido: $mode")
+            println("Teams recibido: $teams")
+            println("Rounds recibido: $rounds")
+            println("========================")
+
+            GameScreen(
+                navController = navController,
+                category = category,
+                mode = mode,
+                totalTeams = teams,
+                totalRounds = rounds
+            )
         }
 
         composable("game/{category}/{mode}") { backStackEntry ->
