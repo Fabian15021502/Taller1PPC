@@ -96,11 +96,21 @@ fun AppNavHost(navController: NavHostController, startDestination: String = "men
             )
         }
 
-        composable("game/{category}/{mode}") { backStackEntry ->
-            val category = backStackEntry.arguments?.getString("category") ?: ""
-            val mode = backStackEntry.arguments?.getString("mode") ?: "individual"
-            GameScreen(navController, category, mode)
-        }
+        composable(
+            route = "results/{scoresJson}/{mode}",
+            arguments = listOf(
+                navArgument("scoresJson") {
+                    type = NavType.StringType
+                    nullable = true
+                },
+                navArgument("mode") {
+                    type = NavType.StringType
+                    nullable = true
+                }
+            )
+        ) { backStackEntry ->
+            val scoresJson = backStackEntry.arguments?.getString("scoresJson")
+            val mode = backStackEntry.arguments?.getString("mode")
 
         composable("results/{scoreA}/{scoreB}/{mode}") { backStackEntry ->
             val scoreA = backStackEntry.arguments?.getString("scoreA")?.toIntOrNull() ?: 0
