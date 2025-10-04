@@ -10,12 +10,48 @@ import com.example.nuevoproyectoprueba.ui.screens.GameScreen
 import com.example.nuevoproyectoprueba.ui.screens.ResultScreen
 
 @Composable
-fun AppNavHost(navController: NavHostController) {
-    NavHost(
-        navController = navController,
-        startDestination = "menu"
-    ) {
-        composable("menu") { MenuScreen(navController) }
+fun AppNavHost(navController: NavHostController, startDestination: String = "menu") {
+    NavHost(navController = navController, startDestination = startDestination) {
+
+        composable("menu") {
+            MenuScreen(navController = navController)
+        }
+
+        composable(
+            route = "categories/{mode}/{teams}/{rounds}",
+            arguments = listOf(
+                navArgument("mode") {
+                    type = NavType.StringType
+                    defaultValue = "individual"
+                },
+                navArgument("teams") {
+                    type = NavType.IntType
+                    defaultValue = 1
+                },
+                navArgument("rounds") {
+                    type = NavType.IntType
+                    defaultValue = 3
+                }
+            )
+        ) { backStackEntry ->
+            val mode = backStackEntry.arguments?.getString("mode") ?: "individual"
+            val teams = backStackEntry.arguments?.getInt("teams") ?: 1
+            val rounds = backStackEntry.arguments?.getInt("rounds") ?: 3
+
+            // Debug
+            println("=== DEBUG CATEGORIES ===")
+            println("Mode recibido: $mode")
+            println("Teams recibido: $teams")
+            println("Rounds recibido: $rounds")
+            println("========================")
+
+            CategoryScreen(
+                navController = navController,
+                mode = mode,
+                teams = teams,
+                rounds = rounds
+            )
+        }
 
         composable("categories/{mode}") { backStackEntry ->
             val mode = backStackEntry.arguments?.getString("mode") ?: "individual"
