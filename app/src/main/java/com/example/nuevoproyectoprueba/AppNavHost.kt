@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.example.nuevoproyectoprueba.ui.screens.MenuScreen
 import com.example.nuevoproyectoprueba.ui.screens.CategoryScreen
 import com.example.nuevoproyectoprueba.ui.screens.GameScreen
+import com.example.nuevoproyectoprueba.ui.screens.MenuScreen
 import com.example.nuevoproyectoprueba.ui.screens.ResultScreen
 
 @Composable
