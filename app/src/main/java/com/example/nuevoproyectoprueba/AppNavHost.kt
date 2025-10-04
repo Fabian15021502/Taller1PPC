@@ -1,4 +1,4 @@
-package com.example.nuevoproyectoprueba
+package com.example.nuevoproyectoprueba.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
