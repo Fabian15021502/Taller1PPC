@@ -112,11 +112,11 @@ fun AppNavHost(navController: NavHostController, startDestination: String = "men
             val scoresJson = backStackEntry.arguments?.getString("scoresJson")
             val mode = backStackEntry.arguments?.getString("mode")
 
-        composable("results/{scoreA}/{scoreB}/{mode}") { backStackEntry ->
-            val scoreA = backStackEntry.arguments?.getString("scoreA")?.toIntOrNull() ?: 0
-            val scoreB = backStackEntry.arguments?.getString("scoreB")?.toIntOrNull() ?: 0
-            val mode = backStackEntry.arguments?.getString("mode") ?: "individual"
-            ResultScreen(navController, scoreA, scoreB, mode)
+            ResultScreen(
+                navController = navController,
+                scoresJson = scoresJson,
+                mode = mode
+            )
         }
     }
 }
