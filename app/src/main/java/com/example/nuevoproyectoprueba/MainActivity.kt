@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.example.nuevoproyectoprueba.ui.navigation.AppNavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.nuevoproyectoprueba.ui.theme.NuevoProyectoPruebaTheme
 
