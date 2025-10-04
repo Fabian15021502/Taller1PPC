@@ -53,7 +53,28 @@ fun AppNavHost(navController: NavHostController, startDestination: String = "men
             )
         }
 
-        composable("categories/{mode}") { backStackEntry ->
+        composable(
+            route = "game/{category}/{mode}/{teams}/{rounds}",
+            arguments = listOf(
+                navArgument("category") {
+                    type = NavType.StringType
+                    defaultValue = "Animales"
+                },
+                navArgument("mode") {
+                    type = NavType.StringType
+                    defaultValue = "individual"
+                },
+                navArgument("teams") {
+                    type = NavType.IntType
+                    defaultValue = 1
+                },
+                navArgument("rounds") {
+                    type = NavType.IntType
+                    defaultValue = 3
+                }
+            )
+        ) { backStackEntry ->
+            val category = backStackEntry.arguments?.getString("category") ?: "Animales"
             val mode = backStackEntry.arguments?.getString("mode") ?: "individual"
             CategoryScreen(navController, mode)
         }
